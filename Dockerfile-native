@@ -10,9 +10,9 @@ RUN cd presto-native-execution && \
     source velox/scripts/setup-helper-functions.sh && \
     (mkdir -p third_party && cd third_party && github_checkout aws/aws-sdk-cpp 1.9.96 --depth 1 --recurse-submodules --config advice.detachedHead=false && \
     cmake_install -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=OFF -DMINIMIZE_SIZE:BOOL=ON -DENABLE_TESTING:BOOL=OFF -DBUILD_ONLY:STRING="s3;identity-management") && \
-    EXTRA_CMAKE_FLAGS=" -DVELOX_ENABLE_INT64_BUILD_PARTITION_BOUND=ON" PRESTO_ENABLE_PARQUET=ON PRESTO_ENABLE_S3=ON PRESTO_ENABLE_TESTING=OFF MAX_HIGH_MEM_JOBS=8 MAX_LINK_JOBS=8 NUM_THREADS=8 TREAT_WARNINGS_AS_ERRORS=0 make release && \
+    EXTRA_CMAKE_FLAGS=" -DVELOX_ENABLE_INT64_BUILD_PARTITION_BOUND=ON" PRESTO_ENABLE_PARQUET=ON PRESTO_ENABLE_S3=ON PRESTO_ENABLE_TESTING=OFF MAX_HIGH_MEM_JOBS=8 MAX_LINK_JOBS=8 NUM_THREADS=8 TREAT_WARNINGS_AS_ERRORS=0 make debug && \
     mkdir -p prestissimo && \
-    cp _build/release/presto_cpp/main/presto_server prestissimo && \
+    cp _build/debug/presto_cpp/main/presto_server prestissimo && \
     tar cvf prestissimo.tar entrypoint.sh velox.properties prestissimo
 
 ##
